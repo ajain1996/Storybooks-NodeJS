@@ -17,6 +17,8 @@ app.get('/', function(req, res){
 // Use routes
 app.use('/auth', auth);
 
-app.listen(8000, function(){
-    console.log('Server is listening on port 8000');
+var port = process.env.PORT || 8000;
+
+app.listen(port, function(){
+    console.log('Server is listening');
 });
