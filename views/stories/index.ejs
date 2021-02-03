@@ -1,0 +1,53 @@
+<%- include ('../partials/header.ejs') %>
+
+<div class="widget-2 mt-2">
+    <div class="row">
+        <% if(stories){ %>
+            <h6 class="fs-18 fw-6">Public Stories</h6>
+            <% stories.forEach(function(story, index){ %>
+            <div class="col s12 m3 l3 mt-3">
+                <div class="card p-2">
+                    <div class="card-image">
+                        <% if(currentUser && story.user.id == currentUser._id) { %>
+                            <a href="/stories/edit/<%= story._id %>" class="btn-floating halfway-fab waves-effect waves-light red">
+                                <i class="fa fa-pen" style="font-size: small;"></i>
+                            </a>
+                        <% } %>
+                    </div>
+
+                    <div class="chip flex-items" style="width: 50%;">
+                        <% if(story.user.image) { %>
+                            <img src="<%= story.user.image %>" class="responsive-img ml4">
+                        <% } else { %>
+                            <i class="fa fa-user-circle fs-32 ml4"></i>
+                        <% } %>
+                        <a href="/stories/user/<%= story.user.id %>" class="ml-auto">
+                            <%= story.user.firstName %> <%= story.user.lastName %>
+                        </a>
+                    </div>
+                    
+                    <div class="bucket pb-2" style="height: 180px;">
+                        <p class="fw-6 fs-18 black-text"> <%= story.title.substring(0, 21) %> </p>
+
+                        <p class="card-text dark-text mt1"> <%= story.info.substring(0, 100) %> </p>
+                    </div>
+
+                    <div class="fs-20 ml-2 mb-2">
+                        <%= story.date.toDateString() %>
+                    </div>
+                    
+                    <div class="b-top pt-2 pb-1 center-align">
+                        <a href="/stories/<%= story._id %>" class="red-text darken-1 btn-block" id="fw-700">See More</a>
+                    </div>
+                </div>
+            </div>
+            <% }); %>
+        <% } else { %>
+            <h6 class="fs-18 fw-6">No stories yet 
+                <a href="/stories/add">Create one</a>
+            </h6>
+        <% } %>
+    </div>
+</div>
+
+<%- include ('../partials/footer.ejs') %>

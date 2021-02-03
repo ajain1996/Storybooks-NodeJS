@@ -1,0 +1,148 @@
+<%- include ('../partials/header.ejs') %>
+
+<div class="widget-2 mt-3">
+    <div class="row">
+        <div class="col l9 m9 s12">
+            <div class="box">
+                <div class="fs-24 fw-4 muted-text">
+                    Title: <span class="card-title fs-26"> <%= showStory.title %> </span>
+                </div>
+            </div>
+
+            <div class="box mt-6 mb-6">
+                <span class="fs-22 fw-5 muted-text"> <%= showStory.date.toDateString() %> </span>
+
+                <div class="card-content mt-2">
+                    <%- showStory.body %>
+                </div>
+
+                <div class="card-content">
+                    <p class="lead-2 fw-5 mb0"><%= showStory.secondtitle %></p>
+                    <p><%- showStory.info %></p>
+                </div>
+
+                <div class="card-content">
+                    <p class="lead-2 fw-5 mb0"><%= showStory.thirdtitle %></p>
+                    <p><%- showStory.desc %></p>
+                </div>
+
+                <div class="card-content">
+                    <p class="lead-2 fw-5 mb0"><%= showStory.subtitle %></p>
+                    <p><%- showStory.desc2 %></p>
+                </div>
+
+
+                <div class="mt-3">
+                    <% if(currentUser && showStory.user.id == currentUser._id) { %>
+                    <a href="/stories/edit/<%= showStory._id %>" class="waves-effect waves-light blue fs-14 btn left mr-2">
+                        <i class="fa fa-edit left fs-14"></i>Edit
+                    </a>
+                    <form action="/stories/<%= showStory._id %>?_method=delete" class="left" method="POST">
+                        <button class="waves-effect waves-light red fs-14 btn">
+                            <i class="fa fa-trash left fs-14"></i>Delete
+                        </button>
+                    </form>
+                    <% } %>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col l3 m3 s12">
+            <div class="box center-align">
+                <div class="card-content">
+                    <span class="fs-28 fw-5 mt0">
+                        <%= showStory.user.firstName %> <%= showStory.user.lastName %>
+                    </span><br>
+                    <% if(showStory.user.image) { %>
+                        <img src="<%= showStory.user.id %>" class="responsive-img">
+                    <% } else { %>
+                        <i class="fa fa-user-circle fa-9x blue-text"></i>
+                    <% } %>
+                </div>
+                <div class="px-3 pb-1 pt-2 mt-2 b-top center-align">
+                    <a href="/stories/user/<%= showStory.user.id %>" class="fs-14 fw-4 orange-text"> 
+                        More From  <%= showStory.user.firstName %> <%= showStory.user.lastName %></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <% if(showStory.allowcomments) { %>
+        <div class="col l8 m10 s10 my-3">
+            <div class="box mx-auto">
+                <% if(currentUser){ %>
+                <h6>Post your comment here 
+                    <a class="btn red btn-small fs-12 fw-5 right mb-1 mt3" 
+                        onclick="comment_toggle()" 
+                        id="add_comment_btn"
+                    >Add Comment</a>
+                </h6>
+
+                <div class="row px-4 mt3 mb-1" id="add_comment_input">
+                    <form action="/stories/<%= showStory._id %>/comments" method="POST">
+                        <div class="input-field">
+                            <textarea type="text" name="commentBody" class="materialize-textarea"></textarea>
+                            <label for="input_title">add comment</label>
+                            <input type="submit" class="btn btn-small" value="Submit">
+                        </div>
+                    </form>
+                </div>
+
+                <div class="row px-4 mt3 mb-1" id="add_comment_input">
+                    <form action="/stories/<%= showStory._id %>/comments/edit" method="POST">
+                        <div class="input-field">
+                            <textarea type="text" name="commentBody" class="materialize-textarea"></textarea>
+                            <label for="input_title">add comment</label>
+                            <input type="submit" class="btn btn-small" value="Submit">
+                        </div>
+                    </form>
+                </div>
+
+                <% showStory.comments.forEach(function(comment, index){ %>
+                <div class="box-1 bg-light mb-1">
+                    <div class="card-content flex-items">
+                        <div class="left my-auto mr-1">
+                            <i class="fa fa-user-circle fs-40 grey-text mr-2"></i>
+                        </div>
+                        <div class="left">
+                            <a href="/stories/user/<%= comment.commentUser.id %>" class="lead black-text fw-7 fs-10">
+                                <%= comment.commentUser.firstName %>
+                                <%= comment.commentUser.lastName %>
+                            </a>
+                            <p class="card-title mt-1 fs-12 fw-4 mb-1 mt0 dark-text">
+                                <%= comment.commentBody %>
+                            </p>
+                        </div>
+                        <% if(currentUser && comment.commentUser.id == currentUser._id){ %>
+                        <div class="right ml-auto flex-items">
+                            <a href="/stories/<%= showStory.id %>">
+                                <i class="fa fa-edit right fs-14"></i>
+                            </a>
+                            <form class="right">
+                                <button class="btn-link red-text darken-1">
+                                    <i class="fa fa-trash right fs-14"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+                <% }) %>
+                <% } else { %>
+                    <div>
+                        <h5 class="fw-7 muted-text mt-1"> Comments </h5>
+                        You are not logged in 
+                        You must <a href="/auth/google">Login</a> first
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    <% } else { %>
+        <div></div>
+    <% } %>
+</div>
+
+<%- include ('../partials/footer.ejs') %>

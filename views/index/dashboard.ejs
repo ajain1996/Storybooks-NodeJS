@@ -1,0 +1,52 @@
+<%- include ('../partials/header.ejs') %>
+
+<div class="widget-2">
+    <% if(stories) { %>
+    <h5> Welcome <%= user.firstName %> </h5>
+    <h6> Your Stories </h6>
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% stories.forEach(function(story, index) { %>
+            <tr>
+                <td> 
+                    <a href="/stories/<%= story._id %>">
+                        <%= story.title.substring(0, 20) %> 
+                    </a>
+                </td>
+            
+                <td> <%= story.date.toDateString() %> </td>
+            
+                <td> <%= story.status %> </td>
+
+                <td class="right">
+                    <a href="/stories/edit/<%= story._id %>" class="blue btn btn-small left mr-2">
+                        <i class="fa fa-edit" style="font-size: 16px;"></i>
+                    </a>
+
+                    <form action="/stories/<%= story.id %>?_method=DELETE"  method="POST" class="left">
+                        <button class="red btn btn-small">
+                            <i class="fa fa-trash" style="font-size: 16px;"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <% } else { %>
+        <div>
+            No Stories Yet
+        </div>
+    <% } %>
+</div>
+
+<%- include ('../partials/footer.ejs') %>

@@ -1,0 +1,104 @@
+<%- include ('../partials/header.ejs') %>
+
+<div class="widget-2">
+    <h2>Add Story</h2>
+    <div class="row">
+        <form action="/stories" method="POST" class="col s12">
+            <!-- First Input -->
+            <div class="row">
+                <div class="input-field">
+                    <input id="input_title" type="text" name="title">
+                    <label>main title</label>
+                </div>
+            </div>
+
+            <!-- Status Select -->
+            <div class="row">
+                <div class="input-field">
+                    <select name="status">
+                        <option value="public" selected> Public </option>
+                        <option value="private"> Private </option>
+                        <option value="unpublished"> Unpublished </option>
+                    </select>
+                    <label for="status">Status</label>
+                </div>
+            </div>
+
+            <!-- Comments Checkbox -->
+            <div class="row">
+                <p>
+                    <label>
+                        <input type="checkbox" name="allowcomments" class="filled-in" checked="checked" />
+                        <span>Allow Comments</span>
+                    </label>
+                </p>
+            </div>
+
+            <!-- First Textarea -->
+            <div class="row">
+                <div class="input-field">
+                    <h5> Tell us your Story: </h5>
+                    <textarea name="body" class="materialize-textarea"></textarea>
+                </div>
+            </div>
+
+            <!-- Second Input -->
+            <div class="b">
+                <div class="row">
+                    <div class="input-field">
+                        <input id="second_input_title" type="text" name="secondtitle">
+                        <label>second text</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field">
+                        <h6> Second description: </h6>
+                        <textarea name="info" class="fs-14 fw-5 dark-text b-ddd"
+                            style="height: 150px; padding: 18px 20px;">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Third Input -->
+            <div class="b my-4">
+                <div class="row">
+                    <div class="input-field">
+                        <input id="third_input_title" type="text" name="thirdtitle">
+                        <label>Third title</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field">
+                        <h6> Third description: </h6>
+                        <textarea name="desc" class="fs-14 fw-5 dark-text b-ddd"
+                            style="height: 150px; padding: 18px 20px;">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub Input -->
+            <div class="b">
+                <div class="row">
+                    <div class="input-field">
+                        <input id="sub_input_title" type="text" name="subtitle">
+                        <label>Sub title</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field">
+                        <h6> Sub description: </h6>
+                        <textarea name="desc2" class="fs-14 fw-5 dark-text b-ddd"
+                            style="height: 150px; padding: 18px 20px;">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+
+            <input type="submit" value="save" class="btn mt-3 w-10">
+        </form>
+    </div>
+</div>
+
+<%- include ('../partials/footer.ejs') %>

@@ -1,0 +1,108 @@
+<%- include ('../partials/header.ejs') %>
+
+<div class="widget-2">
+    <h6 class="fw-bold fs-20">Edit Story</h6>
+    <div class="row">
+        <form action="/stories/<%= story._id %>?_method=PUT" method="POST" class="col s12">
+            <div class="row">
+                <div class="input-field">
+                    <input value="<%= story.title %>" type="text" name="title">
+                    <label>Input text</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field">
+                    
+                    <select name="status">
+                        <% optionsArray.forEach(op => { %>
+                            <option value="<%= op %>" <%= story.status === op ? 'selected': '' %>  ><%= op %></option>
+                        <% }); %>
+                    </select>
+
+                    <label for="status">Status</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <p>
+                    <label>
+                        <input type="checkbox" name="allowcomments" class="filled-in" 
+                        <% if(story.allowcomments) { %> checked="checked" <% } %> />
+                        <span>Allow Comments</span>
+                    </label>
+                </p>
+            </div>
+
+            <div class="row">
+                <div class="input-field">
+                    <h5> Tell us your Story: </h5>
+                    <textarea name="body" class="materialize-textarea">
+                        <%= story.body %>
+                    </textarea>
+                </div>
+            </div>
+
+            <!-- Second Input -->
+            <div class="b">
+                <div class="row">
+                    <div class="input-field">
+                        <input value="<%= story.secondtitle %>" id="input_title" type="text" name="secondtitle">
+                        <label>Second title</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field">
+                        <h6> Second description: </h6>
+                        <textarea name="info" class="fs-14 fw-5 dark-text b-ddd"
+                            style="height: 150px; padding: 18px 20px;">
+                            <%= story.info %>
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Third Input -->
+            <div class="b my-4">
+                <div class="row">
+                    <div class="input-field">
+                        <input value="<%= story.thirdtitle %>" id="input_title" type="text" name="thirdtitle">
+                        <label>Third title</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field">
+                        <h6> Third description: </h6>
+                        <textarea name="desc" class="fs-14 fw-5 dark-text b-ddd"
+                            style="height: 150px; padding: 18px 20px;">
+                            <%= story.desc %>
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub Input -->
+            <div class="b">
+                <div class="row">
+                    <div class="input-field">
+                        <input value="<%= story.secondtitle %>" id="input_title" type="text" name="subtitle">
+                        <label>Third title</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field">
+                        <h6> Sub description: </h6>
+                        <textarea name="desc2" class="fs-14 fw-5 dark-text b-ddd"
+                            style="height: 150px; padding: 18px 20px;">
+                            <%= story.desc2 %>
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+
+            <input type="submit" value="save" class="btn my-3 w-10">
+        </form>
+    </div>
+</div>
+
+<%- include ('../partials/footer.ejs') %>
